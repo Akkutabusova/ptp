@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if category_posts %}
+  <h1> {{cats}} </h1>
+
+  {% for post in category_posts %}
+
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="..." class="card-img" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a> <small> - {{post.date_post}}</small></h5>
+          <p class="card-text">{{post.body|slice:"200"}}</p>
+          <p class="card-text"><small class="text-muted">{{post.author}}</small><small><a href="{% url 'update-post' post.pk %}"> (Edit)</a><a href="{% url 'delete-post' post.pk %}"> (Delete)</a></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+
+{% else %}
+
+ <h1> Page not found </h1>
+ 
+{% endif %}
+
+{% endblock %}

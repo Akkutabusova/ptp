@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>Add Post</h1>
+
+<div class="form_group">  
+<form method="POST">
+  {% csrf_token %}
+  {{form.media}}
+  {{form.as_p}}
+  <br/>
+  <button>Post</button>
+  <script>
+	var name = "{{user.id}}";
+	document.getElementById("usr").value = name;
+
+</script>
+</div>
+
+
+{% else %}
+You'r not allowed here!
+{% endif %}
+ 
+{% endblock %}
