@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
 <h1>Posts</h1>
+
 
 
 {% for post in object_list %}
 
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row no-gutters">
-    <div class="col-md-4">
-      <img src="..." class="card-img" alt="...">
+    <div class="col-md-2">
+
+      {% if  post.image %}
+      <img src="{{ post.image.url }}" class="card-img">
+      {% else  %}
+      <img src="{% static 'ablog/images/imgnotfound.png ' %}" class="card-img">
+      {% endif  %}
+
     </div>
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="card-body">
         <h5 class="card-title"><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a> <small> - {{post.date_post}}</small></h5>
-        <p class="card-text">{{post.body|slice:"200"}}</p>
+        <p class="card-text">{{ post.desc }}</p>
         <p class="card-text"><small class="text-muted">{{post.author}}</small>
+          
           {% if post.author.id == user.id %}
           <small><a href="{% url 'update-post' post.pk %}"> (Edit)</a><a href="{% url 'delete-post' post.pk %}"> (Delete)</a></small>
          {% endif %}</p>
